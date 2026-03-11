@@ -29,3 +29,5 @@ joblib.dump(model4, "model4.pkl")
 
 joblib.dump(X_test, "x_test.pkl")
 joblib.dump(y_test, "y_test.pkl")
+joblib.dump(X_train, "x_train.pkl")
+joblib.dump(y_train, "y_train.pkl")
