@@ -1,5 +1,7 @@
 import joblib
 import numpy as np
+import os
+import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score,classification_report, mean_squared_error, mean_absolute_error, r2_score
 
 model1 = joblib.load("model1.pkl")
@@ -67,3 +69,36 @@ print(f"\n Best Model: {best_model[0]}")
 print(f"Train R²={best_model[1][0]:.3f}, Test R²={best_model[1][1]:.3f}, RMSE={best_model[1][2]:.3f}")
 
 joblib.dump(best_model[0], "best_aqi_model.pkl") 
+
+if best_model == "Linear Regression":
+    best_model_obj = model1
+elif best_model == "Logistic Regression":
+    best_model_obj = model2
+elif best_model == "KNN":
+    best_model_obj = model3
+else:
+    best_model_obj = model4
+
+joblib.dump(best_model_obj, "best_aqi_model.pkl")
+
+
+if not os.path.exists("plots"):
+    os.makedirs("plots")
+
+plt.savefig("plots/actual_vs_predicted.png", dpi=300)
+plt.show()
+
+# Plot Actual vs Predicted for Best Model
+
+y_pred_best = best_model_obj.predict(X_test)
+
+plt.figure(figsize=(8,6))
+plt.scatter(y_test, y_pred_best, alpha=0.6, color='teal', edgecolors='k')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', linewidth=2)  # perfect prediction line
+plt.xlabel("Actual AQI")
+plt.ylabel("Predicted AQI")
+plt.title(f"Actual vs Predicted AQI ({best_model})")
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("plots/actual_vs_predicted.png", dpi=300)
+plt.show()
