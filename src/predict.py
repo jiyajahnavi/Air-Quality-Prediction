@@ -62,6 +62,8 @@ models_metrics = {
 }
 
 # Best model logic: sort by train R², then test R², then lowest RMSE
-best_model = max(models_metrics.items(), key=lambda x: (x[1][0], x[1][1], -x[1][2]))
+best_model = max(models_metrics.items(), key=lambda x: (x[1][1], -x[1][2]))
 print(f"\n Best Model: {best_model[0]}")
 print(f"Train R²={best_model[1][0]:.3f}, Test R²={best_model[1][1]:.3f}, RMSE={best_model[1][2]:.3f}")
+
+joblib.dump(best_model[0], "best_aqi_model.pkl") 

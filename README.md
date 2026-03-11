@@ -1,58 +1,81 @@
-**Air Quality Prediction**
+# **Air Quality Prediction**
 
-**GOAL**
+## **GOAL**
 
-The goal of this project is to predict Air Quality Index (AQI ) form features as particulate matter (PM2.5 and PM10), Nitrogen Oxide (NO), Nitric Dioxide (NO2), Carbon Monoxide (CO), Sulphur Dioxide (SO2), Ozone (O3) etc.
+The goal of this project is to **predict Air Quality Index (AQI)** from environmental features such as:
 
-**DATASET**
+* Particulate Matter (PM2.5, PM10)
+* Nitrogen Oxide (NO)
+* Nitric Dioxide (NO2)
+* Carbon Monoxide (CO)
+* Sulphur Dioxide (SO2)
+* Ozone (O3)
 
-Dataset can be downloaded from [here](https://www.kaggle.com/rohanrao/air-quality-data-in-india).
+---
 
-**WHAT I HAD DONE**
-- Step 1: Data Exploration
-- Step 2: Data Cleaning
-- Step 3: Data visualization
-- Step 4: Data training
-- Step 5: Model Creation
-- Step 6: Performance Evaluation
+## **DATASET**
 
+The dataset can be downloaded from [Kaggle – Air Quality Data in India](https://www.kaggle.com/rohanrao/air-quality-data-in-india).
 
-**MODELS USED**
--  Linear Regression
--  Lasso Regression
--  Ridge Regression
--  Decision Tree Regressor
+---
 
+## **PROJECT STEPS**
 
+1. Data Exploration
+2. Data Cleaning
+3. Data Visualization
+4. Feature Selection & Engineering
+5. Model Training
+6. Model Evaluation
 
-**LIBRARIES NEEDED**
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- sklearn (For data traning, importing models and performance check)
+---
 
+## **MODELS USED**
 
-**CONCLUSION**
-- By using Linear Regression model 
- ```python
-    Accuracy achieved :  78.81
- ``` 
- - By using Lasso Regression model 
- ```python
-    Accuracy achieved :  78.81
- ``` 
- - By using Ridge Regression model 
- ```python
-    Accuracy achieved :  78.81
- ``` 
- - By using Decision Tree Regressor model 
- ```python
-    Accuracy achieved :  99.91
- ``` 
-* Accuracy of Regression models- Linear regression, lasso regression and rigde regression is almost same. 
+* Linear Regression
+* Logistic Regression (not ideal for numeric AQI, included for experimentation)
+* K-Nearest Neighbors (KNN) Regressor
+* Decision Tree Regressor
 
-* Whereas accuracy of decision tree regressor is higher and root mean sqaure error is least.
+---
 
-* Decision tree regressor is more efficient model.
+## **LIBRARIES NEEDED**
+
+* pandas
+* numpy
+* matplotlib
+* seaborn
+* sklearn (for models, train-test split, metrics)
+* joblib (for saving/loading models)
+
+---
+
+## **PERFORMANCE RESULTS**
+
+| Model                   | Train R² | Test R² | RMSE   |
+| ----------------------- | -------- | ------- | ------ |
+| Linear Regression       | 0.783    | 0.838   | 50.72  |
+| Logistic Regression     | 0.158    | 0.124   | 117.94 |
+| KNN Regressor           | 0.887    | 0.876   | 44.29  |
+| Decision Tree Regressor | 0.999    | 0.775   | 59.73  |
+
+---
+
+### **CONCLUSION**
+
+* **Linear Regression:** Test R² = 0.838, RMSE = 50.72
+* **Logistic Regression:** Test R² = 0.124, RMSE = 117.94 (not suitable for numeric AQI)
+* **KNN Regressor:** Test R² = 0.876, RMSE = 44.29 → **Best performance in test prediction accuracy**
+* **Decision Tree Regressor:** Test R² = 0.775, RMSE = 59.73 → high train accuracy but some overfitting
+
+**Observations:**
+
+* Regression models (Linear Regression, KNN) show good generalization.
+* Logistic Regression is not appropriate for numeric AQI prediction.
+* KNN Regressor gave the **lowest RMSE** and good R² on test data → **best model for AQI prediction**.
+* Decision Tree achieved **highest train accuracy** (R²=0.999) but lower test R² → likely overfitting.
+
+ **Recommendation:** Use **KNN Regressor** for AQI prediction for better test accuracy and low RMSE.
+
+---
 
